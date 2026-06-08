@@ -1,0 +1,26 @@
+h2 {
+    color: blueviolet;
+}
+
+.btn {
+    border: 2px solid, #fff000;
+    background-image: url("./java.png");
+    background-repeat: no-repeat;
+}
+
+#my_id {
+    border: 4px solid, #f000f0;
+}
+
+.olist li ul li {
+    color: hsl(255, 100%, 0%)
+
+}
+
+.menu {
+    margin: auto;
+}
+
+a:nth-child(3) {
+    color: gold;
+}
