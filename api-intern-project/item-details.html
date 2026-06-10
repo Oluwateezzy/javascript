@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Details | TechOps</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="./index.html" class="logo text-logo">
+        <i class="fa-solid fa-microchip logo-icon"></i>
+        <h1>Tech<span>Ops</span></h1>
+      </a>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun icon-sun"></i>
+          <i class="fa-solid fa-moon icon-moon"></i>
+        </button>
+        <a href="./index.html" class="btn btn-secondary">
+          <i class="fa-solid fa-arrow-left"></i> Back to Catalog
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Details Content Container -->
+  <main class="main-content">
+    <div class="details-layout-wrapper">
+      
+      <!-- Back Link for Mobile -->
+      <div class="mobile-back-link">
+        <a href="./index.html"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+      </div>
+
+      <!-- Loading State -->
+      <div id="details-loading" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Loading device specifications...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="details-error" class="no-results hidden">
+        <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+        <h3>Failed to load device specifications</h3>
+        <p id="error-message-text">The requested device could not be found or the server is offline.</p>
+        <a href="./index.html" class="btn btn-primary">Return to Catalog</a>
+      </div>
+
+      <!-- Main Specifications Sheet -->
+      <article id="device-spec-sheet" class="spec-sheet hidden">
+        <!-- Visual Section (Image & Hero Info) -->
+        <div class="spec-hero">
+          <div class="spec-image-container">
+            <img id="detail-image" src="" alt="Device Image" class="detail-device-image">
+            <div id="detail-category-badge" class="category-badge">Category</div>
+          </div>
+          <div class="spec-title-box">
+            <h2 id="detail-name">Device Name</h2>
+            <div class="meta-row">
+              <span class="meta-item"><i class="fa-solid fa-barcode"></i> <strong id="detail-serial">SN-XXXXX</strong></span>
+              <span class="meta-item"><i class="fa-solid fa-clock"></i> Updated: <span id="detail-updated">Just Now</span></span>
+            </div>
+            <div class="status-row">
+              <span id="detail-status-badge" class="badge">Status</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Grid Grid columns layout -->
+        <div class="spec-details-grid">
+          <!-- Specs details column -->
+          <div class="spec-main-info">
+            <section class="card spec-card">
+              <h3><i class="fa-solid fa-file-lines"></i> Description</h3>
+              <p id="detail-description" class="description-text">No description provided for this device.</p>
+            </section>
+
+            <section class="card spec-card">
+              <h3><i class="fa-solid fa-clipboard-list"></i> Core Specifications</h3>
+              <div class="spec-table">
+                <div class="spec-row">
+                  <span class="spec-label">Device Type</span>
+                  <span id="spec-type" class="spec-value">-</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Serial Number</span>
+                  <span id="spec-serial" class="spec-value">-</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">System Registry ID</span>
+                  <span id="spec-id" class="spec-value">-</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Operations Actions sidebar column -->
+          <div class="spec-actions-sidebar">
+            <!-- Booking Operations Card -->
+            <div class="card action-card">
+              <h3><i class="fa-solid fa-sliders"></i> Operations Control</h3>
+              
+              <!-- Check-In / Check-Out Form -->
+              <div class="control-box">
+                <!-- Check-Out Section -->
+                <form id="checkout-form" class="action-form hidden">
+                  <p class="control-desc">This device is currently available. Assign it to a developer to check it out.</p>
+                  <div class="form-group">
+                    <label for="assignee-name">Assignee Name *</label>
+                    <input type="text" id="assignee-name" name="assignee" required placeholder="e.g. Jane Doe">
+                    <span class="error-msg">Assignee name is required</span>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text"><i class="fa-solid fa-share-from-square"></i> Check Out Device</span>
+                    <span class="btn-spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                  </button>
+                </form>
+
+                <!-- Check-In Section -->
+                <form id="checkin-form" class="action-form hidden">
+                  <p class="control-desc">Checked out by: <strong id="assigned-user-name">User Name</strong></p>
+                  <button type="submit" class="btn btn-success btn-block">
+                    <span class="btn-text"><i class="fa-solid fa-circle-check"></i> Return Device (Check In)</span>
+                    <span class="btn-spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                  </button>
+                </form>
+
+                <!-- Maintenance Form (if status is Maintenance) -->
+                <div id="maintenance-info-box" class="action-form hidden">
+                  <div class="alert alert-warning">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                      <strong>Device in Maintenance</strong>
+                      <p>This item is offline for repairs. Return it to service to enable check outs.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Status Overrides -->
+              <div class="control-divider"><span>Status Override</span></div>
+              <div class="status-override-actions">
+                <button id="btn-set-maintenance" class="btn btn-secondary btn-block">
+                  <i class="fa-solid fa-screwdriver-wrench"></i> Put in Maintenance
+                </button>
+                <button id="btn-release-maintenance" class="btn btn-secondary btn-block hidden">
+                  <i class="fa-solid fa-circle-check"></i> Release to Service
+                </button>
+              </div>
+            </div>
+
+            <!-- Danger Zone Card -->
+            <div class="card danger-card">
+              <h3><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
+              <p>Permanently remove this device from the TechOps inventory registry database.</p>
+              <button id="btn-delete-device" class="btn btn-danger btn-block">
+                <i class="fa-solid fa-trash-can"></i> De-register Device
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="modal-overlay hidden" aria-hidden="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Confirm Deletion</h2>
+        <button id="close-delete-modal" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong id="delete-item-name">this device</strong>?</p>
+        <p class="text-warning"><i class="fa-solid fa-circle-exclamation"></i> This action is permanent and cannot be undone in the db.json database.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel-delete-btn" class="btn btn-secondary">Cancel</button>
+        <button id="confirm-delete-btn" class="btn btn-danger">
+          <span class="btn-text">Confirm Delete</span>
+          <span class="btn-spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JavaScript module (Vite handles this as ES Module) -->
+  <script type="module" src="./src/details.js"></script>
+</body>
+</html>

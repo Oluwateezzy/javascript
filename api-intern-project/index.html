@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Inventory Operations Dashboard</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fa-solid fa-microchip logo-icon"></i>
+        <h1>Tech<span>Ops</span></h1>
+      </div>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun icon-sun"></i>
+          <i class="fa-solid fa-moon icon-moon"></i>
+        </button>
+        <button id="add-device-btn" class="btn btn-primary">
+          <i class="fa-solid fa-plus"></i> Add Device
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <!-- Quick Stats Cards Section (CSS Grid) -->
+    <section class="stats-section" aria-label="Inventory Statistics">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue"><i class="fa-solid fa-boxes-stacked"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Total Inventory</span>
+            <span id="stat-total" class="stat-value">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Available</span>
+            <span id="stat-available" class="stat-value">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-orange"><i class="fa-solid fa-share-from-square"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Checked Out</span>
+            <span id="stat-checkedout" class="stat-value">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-red"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <div class="stat-info">
+            <span class="stat-label">Maintenance</span>
+            <span id="stat-maintenance" class="stat-value">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters and Search Controls -->
+    <section class="controls-section">
+      <div class="controls-container">
+        <!-- Search Input with Debounce Concept -->
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="search-input" placeholder="Search devices by name, serial, or user..." autocomplete="off">
+        </div>
+        
+        <!-- Filter Selectors -->
+        <div class="filters-box">
+          <div class="select-wrapper">
+            <select id="category-filter" aria-label="Filter by Category">
+              <option value="">All Categories</option>
+              <option value="Laptop">Laptops</option>
+              <option value="Mobile">Mobiles</option>
+              <option value="Tablet">Tablets</option>
+              <option value="VR Headset">VR Headsets</option>
+              <option value="Accessory">Accessories</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+
+          <div class="select-wrapper">
+            <select id="status-filter" aria-label="Filter by Status">
+              <option value="">All Statuses</option>
+              <option value="Available">Available</option>
+              <option value="Checked Out">Checked Out</option>
+              <option value="Maintenance">Maintenance</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid Display of Devices -->
+    <section class="inventory-section">
+      <!-- Loading Spinner overlay -->
+      <div id="loading-indicator" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Fetching inventory from API...</p>
+      </div>
+
+      <!-- No Results State -->
+      <div id="no-results" class="no-results hidden">
+        <i class="fa-solid fa-box-open empty-icon"></i>
+        <h3>No devices found</h3>
+        <p>Try adjusting your search query or filters.</p>
+      </div>
+
+      <!-- Device Cards Grid (CSS Grid container) -->
+      <div id="devices-grid" class="devices-grid">
+        <!-- JS will dynamically populate item cards here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Add New Device Drawer Modal (Slide-in) -->
+  <div id="add-drawer" class="drawer-overlay" aria-hidden="true">
+    <div class="drawer-container">
+      <div class="drawer-header">
+        <h2>Add New Device</h2>
+        <button id="close-drawer-btn" class="btn-icon" aria-label="Close form">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="add-device-form" class="drawer-form" novalidate>
+        <div class="form-group">
+          <label for="device-name">Device Name *</label>
+          <input type="text" id="device-name" name="name" required placeholder="e.g. MacBook Pro M3">
+          <span class="error-msg">Name is required</span>
+        </div>
+
+        <div class="form-group">
+          <label for="device-category">Category *</label>
+          <div class="select-wrapper">
+            <select id="device-category" name="category" required>
+              <option value="" disabled selected>Select Category</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Mobile">Mobile</option>
+              <option value="Tablet">Tablet</option>
+              <option value="VR Headset">VR Headset</option>
+              <option value="Accessory">Accessory</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+          <span class="error-msg">Category is required</span>
+        </div>
+
+        <div class="form-group">
+          <label for="device-serial">Serial Number *</label>
+          <input type="text" id="device-serial" name="serialNumber" required placeholder="e.g. SN-XXXXX-XXXX">
+          <span class="error-msg">Serial number is required</span>
+        </div>
+
+        <div class="form-group">
+          <label for="device-image">Image Filename/URL</label>
+          <input type="text" id="device-image" name="image" placeholder="e.g. /assets/laptop.png">
+          <p class="field-hint">You can use default assets like /assets/laptop.png, /assets/phone.png, /assets/vr.png, or any URL.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="device-description">Description</label>
+          <textarea id="device-description" name="description" rows="4" placeholder="Briefly describe the device specifications, condition, or requirements..."></textarea>
+        </div>
+
+        <div class="drawer-actions">
+          <button type="button" id="cancel-drawer-btn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-text">Register Device</span>
+            <span class="btn-spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Main JavaScript bundle (Vite handles this as ES Module) -->
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
