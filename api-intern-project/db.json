@@ -1,0 +1,70 @@
+{
+  "devices": [
+    {
+      "id": "dev-01",
+      "name": "MacBook Pro M3 Max",
+      "category": "Laptop",
+      "status": "Available",
+      "assignedTo": null,
+      "serialNumber": "MBP3M-89A72-XYZ",
+      "description": "16-inch Space Black MacBook Pro with Apple M3 Max chip, 48GB RAM, and 1TB SSD. Reserved for high-performance development and design work.",
+      "image": "/assets/laptop.png",
+      "lastUpdated": "2026-06-09T14:30:00Z"
+    },
+    {
+      "id": "dev-02",
+      "name": "iPhone 15 Pro",
+      "category": "Mobile",
+      "status": "Checked Out",
+      "assignedTo": "Sarah Jenkins",
+      "serialNumber": "IPH15P-55B11-LMN",
+      "description": "Natural Titanium iPhone 15 Pro, 256GB. Currently being used for iOS app responsiveness and push notification testing.",
+      "image": "/assets/phone.png",
+      "lastUpdated": "2026-06-10T08:15:00Z"
+    },
+    {
+      "id": "dev-03",
+      "name": "Meta Quest 3 VR Headset",
+      "category": "VR Headset",
+      "status": "Available",
+      "assignedTo": null,
+      "serialNumber": "MQ3VR-22C44-PQR",
+      "description": "128GB standalone VR headset. Perfect for exploring immersive web layouts, 3D WebGL interfaces, and virtual environment mockups.",
+      "image": "/assets/vr.png",
+      "lastUpdated": "2026-06-08T11:00:00Z"
+    },
+    {
+      "id": "dev-04",
+      "name": "Sony WH-1000XM5",
+      "category": "Accessory",
+      "status": "Checked Out",
+      "assignedTo": "Marcus Vance",
+      "serialNumber": "SNYXM5-44D99-JKL",
+      "description": "Industry-leading noise canceling wireless headphones. Assigned to engineering leads for deep focus blocks.",
+      "image": "/assets/headphones.png",
+      "lastUpdated": "2026-06-10T09:00:00Z"
+    },
+    {
+      "id": "dev-05",
+      "name": "iPad Pro 12.9 Inch",
+      "category": "Tablet",
+      "status": "Maintenance",
+      "assignedTo": null,
+      "serialNumber": "IPDP12-66F55-RST",
+      "description": "M2 chip iPad Pro with Liquid Retina XDR display. Screen replacement in progress due to minor crack.",
+      "image": "/assets/tablet.png",
+      "lastUpdated": "2026-06-07T16:45:00Z"
+    },
+    {
+      "id": "dev-06",
+      "name": "Dell UltraSharp 34\" Curved Monitor",
+      "category": "Accessory",
+      "status": "Available",
+      "assignedTo": null,
+      "serialNumber": "DEL34C-11Z99-ABC",
+      "description": "USB-C Hub curved monitor. Ideal for multi-window coding workflows and wide screen responsive layout verification.",
+      "image": "/assets/monitor.png",
+      "lastUpdated": "2026-06-05T10:20:00Z"
+    }
+  ]
+}
