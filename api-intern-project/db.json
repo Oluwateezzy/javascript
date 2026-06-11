@@ -12,17 +12,6 @@
       "lastUpdated": "2026-06-09T14:30:00Z"
     },
     {
-      "id": "dev-02",
-      "name": "iPhone 15 Pro",
-      "category": "Mobile",
-      "status": "Checked Out",
-      "assignedTo": "Sarah Jenkins",
-      "serialNumber": "IPH15P-55B11-LMN",
-      "description": "Natural Titanium iPhone 15 Pro, 256GB. Currently being used for iOS app responsiveness and push notification testing.",
-      "image": "/assets/phone.png",
-      "lastUpdated": "2026-06-10T08:15:00Z"
-    },
-    {
       "id": "dev-03",
       "name": "Meta Quest 3 VR Headset",
       "category": "VR Headset",
@@ -62,9 +51,20 @@
       "status": "Available",
       "assignedTo": null,
       "serialNumber": "DEL34C-11Z99-ABC",
-      "description": "USB-C Hub curved monitor. Ideal for multi-window coding workflows and wide screen responsive layout verification.",
+      "description": "USB-C Hub curved monitor. display Ideal for multi-window coding workflows and wide screen responsive layout verification.",
       "image": "/assets/monitor.png",
       "lastUpdated": "2026-06-05T10:20:00Z"
+    },
+    {
+      "name": "Mac 2015",
+      "category": "Laptop",
+      "serialNumber": "467436346734",
+      "image": "/apple",
+      "description": "new mac book",
+      "status": "Available",
+      "assignedTo": null,
+      "lastUpdated": "2026-06-10T12:03:00.024Z",
+      "id": "Cb2Qfav"
     }
   ]
 }

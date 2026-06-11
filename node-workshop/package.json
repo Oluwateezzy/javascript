@@ -1,0 +1,29 @@
+{
+  "name": "node-intern-workshop",
+  "version": "1.0.0",
+  "description": "An interactive, hands-on workshop for interns to master Node.js, the Event Loop, libuv, and Asynchronous patterns.",
+  "main": "index.js",
+  "scripts": {
+    "demo:diff-node": "node lessons/02-differentiator/node.js",
+    "demo:event-loop": "node lessons/04-event-loop/event-loop-demo.js",
+    "demo:blocking": "node lessons/05-benchmarks/blocking.js",
+    "demo:non-blocking": "node lessons/05-benchmarks/non-blocking.js",
+    "setup:io": "node lessons/05-benchmarks/setup-files.js",
+    "demo:io-blocking": "npm run setup:io && node lessons/05-benchmarks/io-blocking.js",
+    "demo:io-non-blocking": "npm run setup:io && node lessons/05-benchmarks/io-non-blocking.js",
+    "demo:server": "node lessons/05-benchmarks/server.js",
+    "demo:server-fixed": "node lessons/05-benchmarks/server-fixed.js",
+    "demo:threadpool": "node lessons/06-advanced/thread-pool.js",
+    "demo:threadpool-large": "UV_THREADPOOL_SIZE=8 node lessons/06-advanced/thread-pool.js",
+    "demo:cluster": "node lessons/06-advanced/cluster-demo.js",
+    "demo:antipattern-json": "node lessons/06-advanced/antipattern-json.js",
+    "demo:antipattern-fs": "node lessons/06-advanced/antipattern-fs.js",
+    "setup:homework": "node lessons/08-homework/setup-users.js",
+    "demo:homework-broken": "npm run setup:homework && node lessons/08-homework/broken.js",
+    "demo:homework-solution": "npm run setup:homework && node lessons/08-homework/solution.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
